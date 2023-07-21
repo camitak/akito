@@ -3,7 +3,7 @@
 
 #include "NPC/NPC.h"
 #include "Components/BoxComponent.h"
-#include "Components/TextRenderComponent.h"
+#include "Components/WidgetComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Interfaces/UserInterface.h"
 #include "NPC/NPCAIController.h"
@@ -18,9 +18,26 @@ ANPC::ANPC()
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	CameraComponent->SetupAttachment(GetRootComponent());
 
-	PressEText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("PressEText"));
-	PressEText->SetupAttachment(GetRootComponent());
+	EButtonWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("EButtonText"));
+	EButtonWidget->SetupAttachment(GetRootComponent());
+	EButtonWidget->SetVisibility(false);
+}
 
+void ANPC::ShowOverlay()
+{
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		APlayerController* PlayerController = Cast<APlayerController>(World->GetFirstPlayerController());
+		if (PlayerController)
+		{
+			AMainHUD* MainHUD = Cast<AMainHUD>(PlayerController->GetHUD());
+			if (MainHUD)
+			{
+				MainHUD->ShowOverlay();
+			}
+		}
+	}
 }
 
 void ANPC::BeginPlay()
@@ -28,8 +45,6 @@ void ANPC::BeginPlay()
 	Super::BeginPlay();
 	BoxComponent->OnComponentBeginOverlap.AddUniqueDynamic(this, &ANPC::OnBoxBeginOverlap);
 	BoxComponent->OnComponentEndOverlap.AddUniqueDynamic(this, &ANPC::OnBoxEndOverlap);
-
-	HidePressEText();
 }
 
 void ANPC::Tick(float DeltaTime)
@@ -66,7 +81,6 @@ void ANPC::SetCamera()
 
 void ANPC::OpenDialogWidget()
 {
-
 	UWorld* World = GetWorld();
 	if (World)
 	{
@@ -77,21 +91,21 @@ void ANPC::OpenDialogWidget()
 			if (MainHUD)
 			{
 				MainHUD->OpenNPCDialog();
+				MainHUD->HideOverlay();
+				HidePressEText();
 			}
 		}
 	}
-
-	
 }
 
 void ANPC::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ShowPressEText();
 	if (OtherActor)
 	{
 		IUserInterface* OverlapInterface = Cast<IUserInterface>(OtherActor);
 		if (OverlapInterface)
 		{
+			ShowPressEText();
 			OverlapInterface->SetOverlappingItem(this);
 		}
 	}
@@ -99,12 +113,12 @@ void ANPC::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 void ANPC::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	HidePressEText();
 	if (OtherActor)
 	{
 		IUserInterface* OverlapInterface = Cast<IUserInterface>(OtherActor);
 		if (OverlapInterface)
 		{
+			HidePressEText();
 			OverlapInterface->SetOverlappingItem(nullptr);
 		}
 	}
@@ -112,10 +126,10 @@ void ANPC::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 
 void ANPC::ShowPressEText()
 {
-	PressEText->SetVisibility(true);
+	EButtonWidget->SetVisibility(true);
 }
 
 void ANPC::HidePressEText()
 {
-	PressEText->SetVisibility(false);
+	EButtonWidget->SetVisibility(false);
 }

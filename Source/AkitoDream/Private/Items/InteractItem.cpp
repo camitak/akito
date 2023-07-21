@@ -2,17 +2,17 @@
 
 
 #include "Items/InteractItem.h"
-#include "Components/TextRenderComponent.h"
+#include "Components/WidgetComponent.h"
 
 AInteractItem::AInteractItem()
 {
-	PressEText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("PressEText"));
-	PressEText->SetupAttachment(GetRootComponent());
-
+	EButtonWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("EButtonText"));
+	EButtonWidget->SetupAttachment(GetRootComponent());
 }
 
 void AInteractItem::InteractWithItem(AActor* OtherActor)
 {
+	HidePressEText();
 }
 
 USceneComponent* AInteractItem::GetItemMesh()
@@ -28,12 +28,12 @@ void AInteractItem::BeginPlay()
 
 void AInteractItem::ShowPressEText()
 {
-	PressEText->SetVisibility(true);
+	EButtonWidget->SetVisibility(true);
 }
 
 void AInteractItem::HidePressEText()
 {
-	PressEText->SetVisibility(false);
+	EButtonWidget->SetVisibility(false);
 }
 
 void AInteractItem::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

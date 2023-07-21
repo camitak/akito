@@ -35,6 +35,7 @@ public:
 	virtual void PlayMontage(UAnimMontage* Montage, TArray<FName>& SectionNames) = 0;
 	virtual void AddSouls(ASoul* Soul) = 0;
 	virtual void AddMeows(APickupItem* Item) = 0;
+	virtual void RestoreHealth(float HealValue) = 0;
 	virtual void ReturnToPosition(AActor* Target) = 0;
 	virtual ECharacterWorld GetCharacterWorld() = 0;
 	virtual ECharacterState GetCharacterState() = 0;

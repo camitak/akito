@@ -236,6 +236,15 @@ void AMainCharacter::AddMeows(APickupItem* Item)
 	}
 }
 
+void AMainCharacter::RestoreHealth(float HealValue)
+{
+	if(Attributes)
+	{
+		Attributes->AddHealth(HealValue);
+		OverlayWidget->SetHealthBarPercent(Attributes->GetHealthPercent());
+	}
+}
+
 bool AMainCharacter::CanInteract()
 {
 	return (OverlappingItem || HoldingItem) && 

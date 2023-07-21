@@ -18,6 +18,8 @@ void ABasket::BeginPlay()
 
 void ABasket::InteractWithItem(AActor* OtherActor)
 {
+	HidePressEText();
+
 	if (OtherActor && InteractInterface)
 	{
 		AttachMeshToSocket(InteractInterface->GetItemMesh(), FName("KeySocket"));
@@ -44,6 +46,7 @@ void ABasket::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AAc
 	IUserInterface* UserInterface = Cast<IUserInterface>(OtherActor);
 	if (UserInterface)
 	{
+		ShowPressEText();
 		if (UserInterface->GetCharacterState() == ECharacterState::ECS_HoldingItem)
 		{
 			UserInterface->SetCharacterState(ECharacterState::ECS_HoldingInteractable);
@@ -64,13 +67,13 @@ void ABasket::OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActo
 	IUserInterface* UserInterface = Cast<IUserInterface>(OtherActor);
 	if (UserInterface)
 	{
+		HidePressEText();
 		if (UserInterface->GetCharacterState() == ECharacterState::ECS_HoldingInteractable)
 		{
 			UserInterface->SetCharacterState(ECharacterState::ECS_HoldingItem);
 			UserInterface->SetTotem(nullptr);
 		}
 	}
-
 	InteractInterface = nullptr;
 }
 

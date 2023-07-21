@@ -31,6 +31,8 @@ public:
 	void StartOverlay();
 	void StartScreen();
 	void CloseStartScreen();
+	void HideOverlay();
+	void ShowOverlay();
 
 	UPROPERTY(EditAnywhere, Category = Menu)
 	TSubclassOf<UPauseMenuWidget> PauseMenuWidget;

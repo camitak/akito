@@ -7,6 +7,8 @@
 
 void AFish::InteractWithItem(AActor* OtherActor)
 {
+	HidePressEText();
+
 	IUserInterface* UserInterface = Cast<IUserInterface>(OtherActor);
 	if (UserInterface)
 	{

@@ -17,6 +17,7 @@ void ACatBed::BeginPlay()
 
 void ACatBed::InteractWithItem(AActor* OtherActor)
 {
+	Super::InteractWithItem(OtherActor);
 	if(Portal)
 	{
 		IPortalInterface* PortalInterface = Cast<IPortalInterface>(Portal);

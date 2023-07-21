@@ -19,6 +19,7 @@ public:
 	void ReceiveDamage(float Damage);
 	void AddSouls(int32 NumberOfSouls);
 	void AddMeows(int32 AmountOfMeow);
+	void AddHealth(float HealthValue);
 	float GetHealthPercent();
 	bool IsAlive();
 

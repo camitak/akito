@@ -29,6 +29,7 @@ public:
 	virtual void EKeyPressed(const FInputActionValue& Value) override;
 	virtual void AddSouls(ASoul* Soul) override;
 	virtual void AddMeows(APickupItem* Item) override;
+	virtual void RestoreHealth(float HealValue) override;
 	virtual void PlayMontage(UAnimMontage* Montage, TArray<FName>& SectionNames) override;
 	virtual void GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitter) override;
 	virtual void Move(const FInputActionValue& Value) override;

@@ -120,6 +120,22 @@ void AMainHUD::CloseStartScreen()
 	StartClass->RemoveFromViewport();
 }
 
+void AMainHUD::HideOverlay()
+{
+	if (OverlayClass)
+	{
+		OverlayClass->SetVisibility(ESlateVisibility::Hidden);
+	}
+}
+
+void AMainHUD::ShowOverlay()
+{
+	if (OverlayClass)
+	{
+		OverlayClass->SetVisibility(ESlateVisibility::Visible);
+	}
+}
+
 
 void AMainHUD::OpenMenus(APlayerController* Controller, UUserWidget* Menu)
 {

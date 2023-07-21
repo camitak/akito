@@ -45,3 +45,8 @@ void UAttributeComponent::AddMeows(int32 AmountOfMeow)
 	Meows += AmountOfMeow;
 }
 
+void UAttributeComponent::AddHealth(float HealthValue)
+{
+	Health = FMath::Clamp(Health + HealthValue, 0.f, MaxHealth);
+}
+

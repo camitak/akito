@@ -36,7 +36,6 @@ void ABreakable::GetHit_Implementation(const FVector& ImpactPoint, AActor* Hitte
 	if (World && TreasureClasses.Num() > 0)
 	{
 		FVector Location = GetActorLocation();
-	//	Location.Z += 75.f;
 
 		const int32 Selection = FMath::RandRange(0, TreasureClasses.Num() - 1);
 		World->SpawnActor<APickupItem>(TreasureClasses[Selection], Location, GetActorRotation());

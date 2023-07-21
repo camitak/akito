@@ -8,8 +8,8 @@
 #include "EStates/EStates.h"
 #include "InteractItem.generated.h"
 
-class UTextRenderComponent;
 class USceneComponent;
+class UWidgetComponent;
 
 /**
  * 
@@ -34,11 +34,11 @@ protected:
 	void ShowPressEText();
 	void HidePressEText();
 
+	UPROPERTY(VisibleAnywhere)
+	UWidgetComponent* EButtonWidget;
+
 	UPROPERTY(VisibleAnywhere, Category = States)
 	EItemState ItemState = EItemState::EIS_None;
-	
-	UPROPERTY(EditAnywhere, Category = "Interact Propertie")
-	class UTextRenderComponent* PressEText;
 
 private:
 

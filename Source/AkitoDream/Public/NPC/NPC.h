@@ -9,7 +9,8 @@
 
 class UBoxComponent;
 class UCameraComponent;
-class UTextRenderComponent;
+class UWidgetComponent;
+
 
 UCLASS()
 class AKITODREAM_API ANPC : public ACharacter, public INPCInterface
@@ -31,6 +32,9 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 	void MyBPEvent();
 
+	UFUNCTION(BlueprintCallable)
+	void ShowOverlay();
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -43,8 +47,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	UBoxComponent* BoxComponent;
 
-	UPROPERTY(EditAnywhere, Category = "Interact Propertie")
-	UTextRenderComponent* PressEText;
+	UPROPERTY(VisibleAnywhere)
+	UWidgetComponent* EButtonWidget;
 
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* CameraComponent;
